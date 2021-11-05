@@ -1,0 +1,115 @@
+<section class="page-width" id="masonry">
+    <h2>{{ section.settings.masonry-grid }}</h2>
+    <div class="masonry-grid">
+        <div class="grid-sizer"></div>
+        {%- for block in section.blocks -%}
+            <div class="grid-item">
+                <div class="item-container">
+                    <a href="{{ block.settings.url }}" alt="{{ block.settings.text }}" class="masonry-link">
+                        <img src="{{ block.settings.image | img_url: '500x' }}" alt="{{ block.settings.text }}">
+                        <h3>{{ block.settings.text }}</h3>
+                    </a>
+                </div>
+            </div>
+        {%- endfor -%}
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Masonry Grid",
+    "settings": [
+        {
+            "id": "masonry-grid",
+            "type": "text",
+            "label": "Add a masonry grid"
+        }
+    ],
+    "templates": ["index"],
+    "presets": [
+        {
+            "name": "Masonry Grid",
+            "category": "Masonry"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Masonry Image",
+            "type": "masonry-image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "URL"
+                }    
+            ]
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+    #masonry .grid-item h3 {
+        margin: 0;
+        position: absolute;
+        bottom: 20px;
+        left: 10px;
+        color: #fff;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+    }
+    .grid-item .item-container {
+        padding:0
+    }
+    #masonry .grid-item .item-container a:after {
+        content: "";
+        background: linear-gradient(0deg, #0000008a 0%, transparent 20%);
+        position: absolute;
+        width: 100%;
+        display: block;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        visibility: hidden;
+    }
+    .masonry-link {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+    }
+    #masonry .grid-item a.masonry-link:hover h3, #masonry .grid-item a.masonry-link:hover:after  {
+        opacity:100%;
+        visibility: visible;
+    }
+    #masonry .grid-item a.masonry-link h3, #masonry .grid-item a.masonry-link:after {
+        transition: .5s ease-in-out opacity;
+    }    
+
+{% endstylesheet %}
+
+{% javascript %}
+    var elem = document.querySelector('.masonry-grid');
+    var iso = new Isotope( elem, {
+        // options
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        masonry: {
+            // use element for option
+            columnWidth: '.grid-sizer'
+        }
+    });
+{% endjavascript %}
