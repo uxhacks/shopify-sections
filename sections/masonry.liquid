@@ -60,7 +60,12 @@
 {% endschema %}
 
 {% stylesheet %}
-
+    #masonry .grid-item {
+        width:33%;
+    }
+    .item-container img {
+        width: 100%;
+    }
     #masonry .grid-item h3 {
         margin: 0;
         position: absolute;
@@ -72,7 +77,7 @@
         visibility: hidden;
     }
     .grid-item .item-container {
-        padding:0
+        padding:0;
     }
     #masonry .grid-item .item-container a:after {
         content: "";
