@@ -180,11 +180,11 @@
     }
   },
   "order": [
-    "multi_column",
     "image_banner",
     "rich_text",
     "featured_products",
     "collage",
-    "video"
+    "video",
+    "multi_column"
   ]
 }
